@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './App.css'
 
-function App() {
+const App = () => {
+  const [data, setdata] = useState('')
+
+  const formate = () => {
+    const text = (document.getElementById('text').value)
+    const jsonFormated = JSON.stringify(JSON.parse(text), null, 4)
+    setdata(jsonFormated)
+
+  }
+
+  window.onerror = function () {
+    setdata("Uncaught SyntaxError: Unexpected token a in JSON at position 0 ");
+  };
+
+  const deleteData = () => {
+    ((document.getElementById('text').value) = '')
+    setdata('')
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='body'>
+      <h2 className='h-text'>Your Online Free JSON Formater</h2>
+      <section className='action'>
+        <button onClick={formate} className='f-btn'>Format JSON</button>
+        <button onClick={deleteData} className='c-btn'>Clear Data </button>
+      </section>
+      <section className='display'>
+        <textarea className='input' name="input" id='text' ></textarea>
+        <textarea value={data} readOnly className='input' name="output" id="" ></textarea>
+      </section>
     </div>
   );
-}
+};
 
 export default App;
